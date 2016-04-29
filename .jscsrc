@@ -1,0 +1,26 @@
+{
+	"preset": "crockford",
+	"requireBlocksOnNewline": null,
+	"requireMultipleVarDecl": null,
+	"requireVarDeclFirst": null,
+	"disallowDanglingUnderscores": null,
+	"maximumLineLength": 120,
+	"requireSpaceAfterKeywords": [
+		"do",
+		"for",
+		"if",
+		"else",
+		"switch",
+		"case",
+		"try",
+		"catch",
+		"void",
+		"while",
+		"with",
+		"return",
+		"typeof"
+	],
+	"excludeFiles": [
+        "node_modules/"
+	]
+}
