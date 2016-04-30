@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/PointSource/ps-model-mapper/issues"
   },
-  "homepage": "https://github.com/PointSource/ps-model-mapper#readme"
+  "homepage": "https://github.com/PointSource/ps-model-mapper#readme",
+  "dependencies": {
+    "lodash": "^4.11.1"
+  }
 }
