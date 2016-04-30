@@ -16,19 +16,19 @@ example:
 var myMappingConfig = {
     dataMappings: {
         // by default, field data is simply mapped from one to the other
-        'forward.model.path.to.field1': 'reverse.model.path.to.comparible-field1',
+        'targetModel.path.to.field1': 'sourceModel.path.to.comparible-field1',
         // a transform function can be provided (see below) to handle any formatting nuances
-        'forward.model.path.to.field2': 'reverse.model.path.to.comparible-field2'
+        'targetModel.path.to.field2': 'sourceModel.path.to.comparible-field2'
     },
     dataTransforms: {
         // N.B.: the dataTransforms keys MUST also be keys in the dataMappings object
-        'forward.model.path.to.field1': function transformFnToCall(fieldValue, reverse) { /* ... */ }
+        'targetModel.path.to.field1': function transformFnToCall(fieldValue, reverse) { /* ... */ }
     }
     customProcessors: [
         // custom processors are called in the order they're defined
         {
-            forwardModelPath: 'forward.model.path.to.something',
-            reverseModelPath: 'reverse.model.path.to.whatever.is.needed.to.do.this.mapping',
+            forwardModelPath: 'targetModel.path.to.destination',
+            reverseModelPath: 'sourceModel.path.to.whatever.is.needed.to.do.this.mapping',
             processor: function fnToCallForCustomProcessing(sourceModel, reverse) { /* ... */ }
         },
         /* ... */
@@ -41,8 +41,9 @@ var myMappingConfig = {
 
 ## direction
 
-Conceptually, the **forward** mapping assumes the object to be mapped is in the format defined by the `dataMappings`
-field's "values", and produces an object in the format defined by the `dataMappings` field's keys.
+Conceptually, the "normal", or **forward**, mapping assumes the object to be mapped is in the format defined by the
+`dataMappings` field's "values", and produces an object in the format defined by the `dataMappings` field's keys.
+
 Thus, in a similar way, the **reverse** mapping assumes that the object to be mapped is in the format defined by the
 `dataMappings` field's keys, and produces an object in the format defined by the `dataMappings` field's "values".
 
@@ -57,7 +58,7 @@ var myMapper = modelMapper.createMapper(myMappingConfig);
 /* ... */
 
 // assuming our "public" model is the one in the `dataMappings` field's keys ...
-var publicModelInstance = myMapper.mapForward(privateModelInstance);
+var publicModelInstance = myMapper.map(privateModelInstance);
 var differentPrivateModelInstance = myMapper.mapReverse(anotherPublicModelInstance);
 
 ```
