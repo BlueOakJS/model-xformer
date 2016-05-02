@@ -4,7 +4,7 @@
   "description": "Common utilities for bidirectionally mapping data between two models",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "JUNIT_REPORT_PATH=tests-report.xml mocha --check-leaks --reporter mocha-jenkins-reporter test/testAccessors.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,11 @@
     "data"
   ],
   "author": "Sean Kennedy <sean.kennedy@pointsource.com>",
+  "contributors": [
+    "Darrell Bleakley <darrell.bleakley@pointsource.com",
+    "Ben Schell <ben.schell@pointsource.com",
+    "Rob Ocel <rob.ocel@pointsource.com"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/PointSource/ps-model-mapper/issues"
@@ -23,5 +28,10 @@
   "homepage": "https://github.com/PointSource/ps-model-mapper#readme",
   "dependencies": {
     "lodash": "^4.11.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "mocha-jenkins-reporter": "^0.2.2"
   }
 }
