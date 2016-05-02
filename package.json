@@ -4,7 +4,7 @@
   "description": "Common utilities for bidirectionally mapping data between two models",
   "main": "index.js",
   "scripts": {
-    "test": "JUNIT_REPORT_PATH=tests-report.xml mocha --check-leaks --reporter mocha-jenkins-reporter test/testAccessors.js"
+    "test": "JUNIT_REPORT_PATH=tests-report.xml mocha --check-leaks --reporter mocha-jenkins-reporter test/"
   },
   "repository": {
     "type": "git",

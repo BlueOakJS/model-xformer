@@ -1,3 +1,4 @@
+/* jshint -W030 */
 var chai = require('chai'),
     expect = chai.expect;
 
@@ -57,7 +58,7 @@ describe('accessors', function () {
 
                 var path = 'a';
 
-                expect(accessor.getValue(obj, path)).to.be.an('undefined');
+                expect(accessor.getValue(obj, path)).to.be.undefined;
             });
         });
 
@@ -122,7 +123,7 @@ describe('accessors', function () {
                     b: 'hello there'
                 };
 
-                expect(accessor.getValue(obj, path)).to.be.an('undefined');
+                expect(accessor.getValue(obj, path)).to.be.undefined;
             });
 
             it('returns undefined if the element is not an array (object)', function () {
@@ -135,7 +136,7 @@ describe('accessors', function () {
                     }
                 };
 
-                expect(accessor.getValue(obj, path)).to.be.an('undefined');
+                expect(accessor.getValue(obj, path)).to.be.undefined;
             });
         });
 
@@ -182,7 +183,7 @@ describe('accessors', function () {
           ]
                 };
 
-                expect(accessor.getValue(obj, path)).to.be.an('undefined');
+                expect(accessor.getValue(obj, path)).to.be.undefined;
             });
 
             it('returns undefined if the element is not an array', function () {
@@ -199,7 +200,7 @@ describe('accessors', function () {
                     }
                 };
 
-                expect(accessor.getValue(obj, path)).to.be.an('undefined');
+                expect(accessor.getValue(obj, path)).to.be.undefined;
             });
 
             it('return appropriate value when predicate key is nested', function () {
@@ -228,7 +229,7 @@ describe('accessors', function () {
                 var path = 'a.b.c';
                 var obj = null;
 
-                expect(accessor.getValue(obj, path)).to.be.an('undefined');
+                expect(accessor.getValue(obj, path)).to.be.undefined;
             });
 
             it ('returns undefined if the path is not defined', function () {
@@ -236,9 +237,9 @@ describe('accessors', function () {
                 var obj = {
                     a: 'hello',
                     b: ['world', 'whats', 'up']
-                }
+                };
 
-                expect(accessor.getValue(obj, path)).to.be.an('undefined');
+                expect(accessor.getValue(obj, path)).to.be.undefined;
             });
 
             it('returns the value in the extreme nested case', function () {
@@ -704,7 +705,7 @@ describe('accessors', function () {
             expectValue.a[2] = value;
 
             expect(accessor.setValue(obj, path, value)).to.deep.equal(expectValue);
-            expect(obj).to.be.a('null');
-        })
+            expect(obj).to.be.null;
+        });
     });
 });
