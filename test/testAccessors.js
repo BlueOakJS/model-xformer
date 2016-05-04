@@ -81,9 +81,9 @@ describe('accessors', function () {
                 var obj = {
                     a: true,
                     b: [
-                      [1, 2, 3],
-                      [4, 5, 6],
-                      [7, 8, 9]
+                        [1, 2, 3],
+                        [4, 5, 6],
+                        [7, 8, 9]
                     ],
                     c: {
                         b: 5
@@ -101,14 +101,14 @@ describe('accessors', function () {
 
                 var obj = {
                     b: [
-            {
-                b: [1, 2, 3]
-            },
-            {
-                b: [4, 5, 6]
-            },
-            subObj
-          ],
+                        {
+                            b: [1, 2, 3]
+                        },
+                        {
+                            b: [4, 5, 6]
+                        },
+                        subObj
+                    ],
                     a: {
                         b: 'hello'
                     }
@@ -155,11 +155,11 @@ describe('accessors', function () {
                         }]
                     },
                     c: [
-            {
-                d: ['e']
-            },
-            subObj
-          ]
+                        {
+                            d: ['e']
+                        },
+                        subObj
+                    ]
                 };
 
                 expect(accessor.getValue(obj, path)).to.equal(subObj);
@@ -174,13 +174,13 @@ describe('accessors', function () {
                         }]
                     },
                     c: [
-            {
-                d: ['e']
-            },
-            {
-                d: 'a'
-            }
-          ]
+                        {
+                            d: ['e']
+                        },
+                        {
+                            d: 'a'
+                        }
+                    ]
                 };
 
                 expect(accessor.getValue(obj, path)).to.be.undefined;
@@ -213,11 +213,11 @@ describe('accessors', function () {
                 };
                 var obj = {
                     c: [
-                      subObj,
-            {
-                d: 'f'
-            }
-          ]
+                        subObj,
+                        {
+                            d: 'f'
+                        }
+                    ]
                 };
 
                 expect(accessor.getValue(obj, path)).to.equal(subObj);
@@ -232,7 +232,7 @@ describe('accessors', function () {
                 expect(accessor.getValue(obj, path)).to.be.undefined;
             });
 
-            it ('returns undefined if the path is not defined', function () {
+            it('returns undefined if the path is not defined', function () {
                 var path = null;
                 var obj = {
                     a: 'hello',
@@ -250,43 +250,43 @@ describe('accessors', function () {
                 var obj = {
                     a: {
                         b: [
-              {
-                  c: [
+                            {
+                                c: [
 
-                ]
-              },
-              {
-                  c: [
-                  {
-                      d: 'e',
-                      f: {
-                          g: [
-                        {
-                            h: 'ii'
-                        },
-                        {
-                            h: 'i',
-                            j: [
-                            {
-                                k: 'nope'
+                                ]
                             },
                             {
-                                k: 'you lose'
-                            },
-                            {
-                                k: 'waldo'
+                                c: [
+                                    {
+                                        d: 'e',
+                                        f: {
+                                            g: [
+                                                {
+                                                    h: 'ii'
+                                                },
+                                                {
+                                                    h: 'i',
+                                                    j: [
+                                                        {
+                                                            k: 'nope'
+                                                        },
+                                                        {
+                                                            k: 'you lose'
+                                                        },
+                                                        {
+                                                            k: 'waldo'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        d: ['e']
+                                    }
+                                ]
                             }
-                          ]
-                        }
-                      ]
-                      }
-                  },
-                  {
-                      d: ['e']
-                  }
-                ]
-              }
-            ]
+                        ]
                     },
                     b: 'a',
                     aa: 5
@@ -304,43 +304,43 @@ describe('accessors', function () {
                 var obj = {
                     abc: {
                         def: [
-              {
-                  ghi: [
-                  {
-                      jkl: 'mno',
-                      pqr: {
-                          stu: [
-                        {
-                            vwx: 'ii'
-                        },
-                        {
-                            vwx: 'yza',
-                            abb: [
                             {
-                                ccd: 'marco'
+                                ghi: [
+                                    {
+                                        jkl: 'mno',
+                                        pqr: {
+                                            stu: [
+                                                {
+                                                    vwx: 'ii'
+                                                },
+                                                {
+                                                    vwx: 'yza',
+                                                    abb: [
+                                                        {
+                                                            ccd: 'marco'
+                                                        },
+                                                        {
+                                                            ccd: 'you lose'
+                                                        },
+                                                        {
+                                                            ccd: 'nope'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        d: ['e']
+                                    }
+                                ]
                             },
                             {
-                                ccd: 'you lose'
-                            },
-                            {
-                                ccd: 'nope'
-                            }
-                          ]
-                        }
-                      ]
-                      }
-                  },
-                  {
-                      d: ['e']
-                  }
-                ]
-              },
-              {
-                  ghi: [
+                                ghi: [
 
-                ]
-              }
-            ]
+                                ]
+                            }
+                        ]
                     },
                     b: 'a',
                     aa: 5
@@ -577,11 +577,11 @@ describe('accessors', function () {
                 };
 
                 expect(accessor.setValue(obj, path, value)).to.deep.equal(expectValue);
-                expect(obj.a[0]).to.deep.equal({f: 'g'});
+                expect(obj.a[0]).to.deep.equal({ f: 'g' });
             });
 
-            describe ('predicate matching child object values works', function () {
-                it ('when the matching object exists', function () {
+            describe('predicate matching child object values works', function () {
+                it('when the matching object exists', function () {
                     var path = 'a[f_g=hello]';
                     var obj = {
                         a: [
@@ -602,10 +602,10 @@ describe('accessors', function () {
                     };
 
                     expect(accessor.setValue(obj, path, value)).to.equal(obj);
-                    expect(obj.a[1]).to.deep.equal({f: {g: 'hello'}, h: 'it works!'});
+                    expect(obj.a[1]).to.deep.equal({ f: { g: 'hello' }, h: 'it works!' });
                 });
 
-                it ('when the matching object does not exist', function () {
+                it('when the matching object does not exist', function () {
                     var path = 'a[f_g=hello]';
                     var obj = {};
                     var value = {
@@ -613,7 +613,7 @@ describe('accessors', function () {
                     };
 
                     expect(accessor.setValue(obj, path, value)).to.equal(obj);
-                    expect(obj.a[0]).to.deep.equal({f: {g: 'hello'}, h: 'it works!'});
+                    expect(obj.a[0]).to.deep.equal({ f: { g: 'hello' }, h: 'it works!' });
                 });
             });
         });
@@ -673,7 +673,7 @@ describe('accessors', function () {
                 var path = 'a.b[1].c[d=e].f.g[h=i].j[2].k';
                 var obj = {};
                 var value = 'hello world';
-                expect (accessor.setValue(obj, path, value)).to.equal(obj);
+                expect(accessor.setValue(obj, path, value)).to.equal(obj);
                 expect(obj.a.b[1].c[0].f.g[0].j[2].k).to.equal(value);
                 expect(obj.a.b[1].c[0].d).to.equal('e');
                 expect(obj.a.b[1].c[0].f.g[0].h).to.equal('i');
