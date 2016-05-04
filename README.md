@@ -5,7 +5,9 @@
  If you need to map and transform data from one model (format) to another, this is the module for you!
  
 Provide one JSON configuration that connects the two models, and use `ps-model-mapper` to interpret and apply that
-configuration onto real data you provide in one format to output the other.  
+configuration onto real data you provide in one format to output the other.
+
+In addition to the info below, checkout the [tests](./test) for running examples.
 
 ## configuration
 

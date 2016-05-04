@@ -1,10 +1,11 @@
 {
   "name": "ps-model-mapper",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Common utilities for bidirectionally mapping data between two models",
   "main": "index.js",
   "scripts": {
-    "test": "JUNIT_REPORT_PATH=tests-report.xml mocha --check-leaks --reporter mocha-jenkins-reporter test/"
+    "test": "JUNIT_REPORT_PATH=tests-report.xml mocha --check-leaks --reporter mocha-jenkins-reporter test/",
+    "prepublish": "npm test"
   },
   "repository": {
     "type": "git",
