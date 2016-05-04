@@ -1,4 +1,4 @@
-var modelMapper = require('../../index');
+var modelMapper = require('../../../index');
 var engineMappingConfig = {
     dataMappings: {
         'size': 'Volume',

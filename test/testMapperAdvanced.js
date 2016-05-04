@@ -2,10 +2,10 @@
 var chai = require('chai'),
     expect = chai.expect;
 
-var carMapper = require('./fixtures/car-mapper'),
+var carMapper = require('./fixtures/composition/car-mapper'),
     ModelMapper = require('../lib/ModelMapper');
 
-describe('Advanced ModelMapper usage', function () {
+describe('Advanced ModelMapper Usage:', function () {
 
     describe('with composition', function () {
         var theirCarObj = {
