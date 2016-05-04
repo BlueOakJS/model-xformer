@@ -58,7 +58,7 @@ Conceptually, the "normal", or **forward**, mapping assumes the object to be map
 Thus, in a similar way, the **reverse** mapping assumes that the object to be mapped is in the format defined by the
 `dataMappings` field's keys, and produces an object in the format defined by the `dataMappings` field's "values".
 
-## usage
+## use
 
 ```javascript
 var modelMapper = require('ps-model-mapper');
@@ -72,4 +72,46 @@ var myMapper = modelMapper.createMapper(myMappingConfig);
 var publicModelInstance = myMapper.map(privateModelInstance);
 var differentPrivateModelInstance = myMapper.mapReverse(anotherPublicModelInstance);
 
+```
+
+## reuse
+
+Often times it's handy to build up complex mappings from smaller mappings.
+A good example of this is object composition, e.g. a "`Car` _has a_ `Engine`" relationship.
+In this case, you can reuse the engine mapper to provide the mapping for that element of the car's mapping.
+
+**engine-mapper.js**
+```javascript
+var modelMapper = require('ps-model-mapper');
+var engineMappingConfig = { /* ... */ };
+module.exports = modelMapper.createMapper(engineMappingConfig);
+``` 
+
+**car-mapper.js**
+```javascript
+var modelMapper = require('ps-model-mapper');
+var engineMapper = require('./engine-mapper');
+var carMappingConfig = {
+    /* ... */
+    customProcessors: [
+        /* ... */
+        {
+            targetModelPath: 'engine',
+            sourceModelPath: 'Mechanical_Systems.Engine',
+            // (the `map` function has an optional second parameter `reverse` that allows it to run bidirectionally)
+            processor: engineMapper.map
+        }
+        /* ... */
+    ],
+    /* ... */
+};
+module.exports = modelMapper.createMapper(carMappingConfig);
+```
+
+Then, from somewhere else in your code:
+```javascript
+var carMapper = require('./mappers/car-mapper');
+/* ... */
+var publicModelInstance = carMapper.map(privateModelInstance);
+var differentPrivateModelInstance = carMapper.mapReverse(anotherPublicModelInstance);
 ```
