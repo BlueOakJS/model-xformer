@@ -46,7 +46,29 @@ var myMappingConfig = {
         {
             /* ... */
         }
-    ]
+    ],
+    defaultValues: {
+        // provide default values to use when a mapping fails to produce a value for the named fields,
+        // i.e. when the path in the key is 'undefined' (if there's a value, including 'null', it won't be applied)
+        // default values are added to the mapped object after all mappings/transforms and custom processors are done
+        map: {
+            // in case the data object didn't have the source data to map,
+            // you can provide default values for fields that could be set from elsewhere
+            'targetModel.path.to.field1': 'my default value',
+            // you can also just fill in additional data that is always the same
+            'targetModel.somethingSpecial.reallySpecial': true
+        },
+        mapReverse: {
+            // the keys of this object are the keys of the mapped object when the mapper is run in reverse
+            // i.e. they match to the model described by the dataMappings values
+            'sourceModel.path.to.array[@_type=Special]': {
+                type: 'Special',
+                reallySpecial: false
+            },
+            // you can call a function too, but it won't get the either the data object or the mapped object as context
+            'sourceModel.timeCreated': Date.now
+        }
+    }
 };
 ```
 
