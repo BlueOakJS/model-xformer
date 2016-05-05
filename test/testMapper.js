@@ -174,4 +174,51 @@ describe('ModelMapper', function () {
         });
     });
 
+    describe('.mapArray()', function () {
+        var inputArray, expectValue, myMapper;
+        describe('should return a mapped array', function () {
+            before(function () {
+                myMapper = new ModelMapper({
+                    dataMappings: {
+                        'c': 'a',
+                        'd': 'b'
+                    }
+                });
+                inputArray = [
+                    {
+                        a: 1,
+                        b: 2
+                    },
+                    {
+                        a: 3,
+                        b: 4
+                    }
+                ];
+                expectValue = [
+                    {
+                        c: 1,
+                        d: 2
+                    },
+                    {
+                        c: 3,
+                        d: 4
+                    }
+                ];
+            });
+            it('when source is null', function () {
+                var res = myMapper.mapArray(null);
+                expect(res).to.deep.equal([]);
+            });
+            it('except when input is not an array', function () {
+                expect(myMapper.mapArray.bind(null, inputArray[0])).to.throw(/Value must be an array\./);
+            });
+            it('when `dataMappings` matches an array for input', function () {
+                expect(myMapper.mapArray(inputArray)).to.deep.equal(expectValue);
+            });
+            it('when reverse `dataMappings` matches an array for input', function () {
+                expect(myMapper.mapArray(expectValue, true)).to.deep.equal(inputArray);
+            });
+        });
+    });
+
 });
