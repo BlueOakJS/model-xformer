@@ -218,6 +218,9 @@ describe('ModelMapper', function () {
             it('when reverse `dataMappings` matches an array for input', function () {
                 expect(myMapper.mapArray(expectValue, true)).to.deep.equal(inputArray);
             });
+            it('when using mapReverse and `dataMappings` matches an array for input', function () {
+                expect(myMapper.mapArrayReverse(expectValue)).to.deep.equal(inputArray);
+            });
         });
     });
 

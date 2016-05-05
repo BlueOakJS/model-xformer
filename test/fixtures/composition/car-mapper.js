@@ -4,15 +4,12 @@ var engineMapper = require('./engine-mapper');
 var carMappingConfig = {
     dataMappings: {
         'make': 'Manufacture.Name',
-        'model': 'Manufacture.Model'
+        'model': 'Manufacture.Model',
+        'engine': 'Mechanical_Systems.Engine'
     },
-    customProcessors: [
-        {
-            targetModelPath: 'engine',
-            sourceModelPath: 'Mechanical_Systems.Engine',
-            processor: engineMapper.map
-        }
-    ]
+    dataTransforms: {
+        'engine': engineMapper.map
+    }
 };
 
 module.exports = modelMapper.createMapper(carMappingConfig);

@@ -3,7 +3,7 @@
 **Common utilities for bidirectionally mapping data between two models**
 
  If you need to map and transform data from one model (format) to another, this is the module for you!
- 
+
 Provide one JSON configuration that connects the two models, and use `ps-model-mapper` to interpret and apply that
 configuration onto real data you provide in one format to output the other.
 
@@ -96,6 +96,9 @@ var myMapper = modelMapper.createMapper(myMappingConfig);
 var publicModelInstance = myMapper.map(privateModelInstance);
 var differentPrivateModelInstance = myMapper.mapReverse(anotherPublicModelInstance);
 
+// you can also map an array of objects
+var publicModelArrayInstance = myMapper.mapArray(privateModelArrayInstance);
+var differentPrivateModelArrayInstance = myMapper.mapArrayReverse(anotherPublicModelArrayInstance);
 ```
 
 ## reuse
@@ -109,7 +112,7 @@ In this case, you can reuse the engine mapper to provide the mapping for that el
 var modelMapper = require('ps-model-mapper');
 var engineMappingConfig = { /* ... */ };
 module.exports = modelMapper.createMapper(engineMappingConfig);
-``` 
+```
 
 **car-mapper.js**
 ```javascript
@@ -117,15 +120,16 @@ var modelMapper = require('ps-model-mapper');
 var engineMapper = require('./engine-mapper');
 var carMappingConfig = {
     /* ... */
-    customProcessors: [
+    dataMappings: {
         /* ... */
-        {
-            targetModelPath: 'engine',
-            sourceModelPath: 'Mechanical_Systems.Engine',
-            // (the `map` function has an optional second parameter `reverse` that allows it to run bidirectionally)
-            processor: engineMapper.map
-        }
+        'engine': 'Mechanical_Systems.Engine',
         /* ... */
+    },
+    dataTransforms: {
+        /* ... */
+        'engine': engineMapper.map
+        /* ... */
+    }
     ],
     /* ... */
 };
