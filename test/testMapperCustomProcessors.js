@@ -87,13 +87,13 @@ describe('Custom Processors', function () {
         });
 
         it('can map a string to a string', function () {
-            var output = processorOnlyMapper.map(theirInt);
-            expect(output).to.deep.equal(myInt);
+            var output = processorOnlyMapper.map(theirString);
+            expect(output).to.deep.equal(myString);
         });
 
         it('can reverse map a string to a string', function () {
-            var output = processorOnlyMapper.mapReverse(myInt);
-            expect(output).to.deep.equal(theirInt);
+            var output = processorOnlyMapper.mapReverse(myString);
+            expect(output).to.deep.equal(theirString);
         });
     });
 });
