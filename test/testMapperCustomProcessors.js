@@ -7,93 +7,227 @@ var modelMapper = require('../index');
 
 describe('Custom Processors', function () {
 
-    var processorConfig, processorOnlyMapper;
+    var testMapper, myArr, myObj, myInt, myStr;
 
-    var theirArray = {
+    var theirArr = {
         'Alpha': [1, 2, 3]
     };
-    var myArray = {
-        a: [3, 2, 1]
-    };
-
-    var theirObject = {
+    var theirObj = {
         'Alpha': {
             'Alpha': 'first',
             'Omega': 'last'
         }
     };
-    var myObject = {
-        a: {
-            'first': 'Alpha',
-            'last': 'Omega'
-        }
-    };
-
     var theirInt = {
         'Alpha': 5
     };
-    var myInt = {
-        a: 10
-    };
-
-    var theirString = {
+    var theirStr = {
         'Alpha': 'WORD'
-    };
-    var myString = {
-        a: 'word'
     };
 
     describe('with both paths provided', function () {
 
         before(function () {
-            processorConfig = {
-                targetModelPath: 'a',
-                sourceModelPath: 'Alpha',
-                processor: multiProcessor
-            };
-            processorOnlyMapper = modelMapper.createMapper({
-                customProcessors: [processorConfig]
+            testMapper = modelMapper.createMapper({
+                customProcessors: [{
+                    targetModelPath: 'a',
+                    sourceModelPath: 'Alpha',
+                    processor: multiProcessor
+                }]
             });
+
+            myArr = {
+                a: [3, 2, 1]
+            };
+            myObj = {
+                a: {
+                    'first': 'Alpha',
+                    'last': 'Omega'
+                }
+            };
+            myInt = {
+                a: 10
+            };
+            myStr = {
+                a: 'word'
+            };
         });
 
         it('can map an array to an array', function () {
-            var output = processorOnlyMapper.map(theirArray);
-            expect(output).to.deep.equal(myArray);
+            var output = testMapper.map(theirArr);
+            expect(output).to.deep.equal(myArr);
         });
 
         it('can reverse map an array to an array', function () {
-            var output = processorOnlyMapper.mapReverse(myArray);
-            expect(output).to.deep.equal(theirArray);
+            var output = testMapper.mapReverse(myArr);
+            expect(output).to.deep.equal(theirArr);
         });
 
         it('can map an object to an object', function () {
-            var output = processorOnlyMapper.map(theirObject);
-            expect(output).to.deep.equal(myObject);
+            var output = testMapper.map(theirObj);
+            expect(output).to.deep.equal(myObj);
         });
 
         it('can reverse map an object to an object', function () {
-            var output = processorOnlyMapper.mapReverse(myObject);
-            expect(output).to.deep.equal(theirObject);
+            var output = testMapper.mapReverse(myObj);
+            expect(output).to.deep.equal(theirObj);
         });
 
         it('can map an int to an int', function () {
-            var output = processorOnlyMapper.map(theirInt);
+            var output = testMapper.map(theirInt);
             expect(output).to.deep.equal(myInt);
         });
 
         it('can reverse map an int to an int', function () {
-            var output = processorOnlyMapper.mapReverse(myInt);
+            var output = testMapper.mapReverse(myInt);
             expect(output).to.deep.equal(theirInt);
         });
 
         it('can map a string to a string', function () {
-            var output = processorOnlyMapper.map(theirString);
-            expect(output).to.deep.equal(myString);
+            var output = testMapper.map(theirStr);
+            expect(output).to.deep.equal(myStr);
         });
 
         it('can reverse map a string to a string', function () {
-            var output = processorOnlyMapper.mapReverse(myString);
-            expect(output).to.deep.equal(theirString);
+            var output = testMapper.mapReverse(myStr);
+            expect(output).to.deep.equal(theirStr);
+        });
+    });
+
+    describe('with only one path provided', function () {
+
+        before(function () {
+            testMapper = modelMapper.createMapper({
+                customProcessors: [{
+                    sourceModelPath: 'Alpha',
+                    processor: multiProcessor
+                }]
+            });
+
+            myArr = [3, 2, 1];
+            myObj = {
+                'first': 'Alpha',
+                'last': 'Omega'
+            };
+            myInt = 10;
+            myStr = 'word';
+        });
+
+        it('can map an array in an object to an array-like object', function () {
+            var output = testMapper.map(theirArr);
+            expect(output).to.be.an('object');
+            _.forEach(output, function (val, key) {
+                expect(val).to.equal(myArr[key]);
+            });
+        });
+
+        it('can map an array to an array in an object', function () {
+            var output = testMapper.mapReverse(myArr);
+            expect(output).to.deep.equal(theirArr);
+        });
+
+        it('can map a nested object to a top-level object', function () {
+            var output = testMapper.map(theirObj);
+            expect(output).to.deep.equal(myObj);
+        });
+
+        it('can map a top-level object to a nested object', function () {
+            var output = testMapper.mapReverse(myObj);
+            expect(output).to.deep.equal(theirObj);
+        });
+
+        it('cannot map an int field to an int', function () {
+            expect(testMapper.map.bind(null, theirInt)).to.throw(Error);
+        });
+
+        it('can map an int to an int field', function () {
+            var output = testMapper.mapReverse(myInt);
+            expect(output).to.deep.equal(theirInt);
+        });
+
+        it('cannot map a string field to a string', function () {
+            expect(testMapper.map.bind(null, theirStr)).to.throw(Error);
+        });
+
+        it('can map a string to a string field', function () {
+            var output = testMapper.mapReverse(myStr);
+            expect(output).to.deep.equal(theirStr);
+        });
+    });
+
+    describe('when merging is needed', function () {
+
+        var sourceArr, sourceObj, sourceInt, sourceStr;
+
+        before(function () {
+            testMapper = modelMapper.createMapper({
+                customProcessors: [
+                    {
+                        targetModelPath: 'x',
+                        sourceModelPath: 'Alpha',
+                        processor: multiProcessor
+                    },
+                    {
+                        targetModelPath: 'x',
+                        sourceModelPath: 'Beta',
+                        processor: multiProcessor
+                    }
+                ]
+            });
+
+            sourceArr = _.assign({}, theirArr, {
+                'Beta': [7, 8, 9]
+            });
+            sourceObj = _.assign({}, theirObj, {
+                'Beta': {
+                    'version': 1,
+                    'date': '2016-05-07'
+                }
+            });
+            sourceInt = _.assign({}, theirInt, {
+                'Beta': 1
+            });
+            sourceStr = _.assign({}, theirStr, {
+                'Beta': 'ONE'
+            });
+
+            myArr = {
+                x: [3, 2, 1, 9, 8, 7]
+            };
+            myObj = {
+                x: {
+                    'first': 'Alpha',
+                    'last': 'Omega',
+                    '1': 'version',
+                    '2016-05-07': 'date'
+                }
+            };
+            myInt = {
+                x: 2
+            };
+            myStr = {
+                x: 'one'
+            };
+        });
+
+        it('can merge arrays in the output', function () {
+            var output = testMapper.map(sourceArr);
+            expect(output).to.deep.equal(myArr);
+        });
+
+        it('can merge objects in the output', function () {
+            var output = testMapper.map(sourceObj);
+            expect(output).to.deep.equal(myObj);
+        });
+
+        it('can replace previously set ints in the output', function () {
+            var output = testMapper.map(sourceInt);
+            expect(output).to.deep.equal(myInt);
+        });
+
+        it('can replace previously set strings in the output', function () {
+            var output = testMapper.map(sourceStr);
+            expect(output).to.deep.equal(myStr);
         });
     });
 });
