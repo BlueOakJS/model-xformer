@@ -1,6 +1,14 @@
-var modelMapper = require('../../index');
+var _ = require('lodash'),
+    modelMapper = require('../../index');
 
 var comprehensiveMapper = modelMapper.createMapper({
+    baseObject: {
+        map: function (source) {
+            return (!_.isEmpty(source)) ? {
+                _source: source
+            } : {};
+        }
+    },
     dataMappings: {
         'a': 'Alpha',
         'o': 'Omega',

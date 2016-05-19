@@ -17,9 +17,13 @@ example:
 ```javascript
 var myMappingConfig = {
     baseObject: {
-        // describes the object to use as the basis for the mapping.
+        // describes the object that is used as the basis for the mapping. By default the mapper will
+        // base the mapping invocation on an empty object, {}.
         // The value can be a string - 'source' or a function.
-        map : 'source'
+        map : function (source) {
+            // return the source object as the basis, with the _private attributes removed.
+            return _.omit(source, ['_private']);
+        }
         mapReverse: 'source'
     },
     dataMappings: {
@@ -90,7 +94,7 @@ Thus, in a similar way, the **reverse** mapping assumes that the object to be ma
 
 ## baseObject options
 
-The baseObject configuration describes the object that is used as the basis for the mapping. By default the mapper will base the mapping on an empty object.
+The baseObject configuration describes the object that is used as the basis for the mapping. By default the mapper will base the mapping on an empty object, {}.
 
 When the map or mapReverse configuration values are the string -- `source`, the mapper will deep clone the source data object and begin mapping using that as the basis.
 
