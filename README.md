@@ -16,6 +16,16 @@ Mapping from one model to the other is done based on a configuration provided.
 example:
 ```javascript
 var myMappingConfig = {
+    baseObject: {
+        // describes the object that is used as the basis for the mapping. By default the mapper will
+        // base the mapping invocation on an empty object, {}.
+        // The value can be a string - 'source' or a function.
+        map : function (source) {
+            // return the source object as the basis, with the _private attributes removed.
+            return _.omit(source, ['_private']);
+        }
+        mapReverse: 'source'
+    },
     dataMappings: {
         // by default, field data is simply mapped from one to the other
         'targetModel.path.to.field1': 'sourceModel.path.to.comparible-field1',
@@ -81,6 +91,30 @@ Conceptually, the "normal", or **forward**, mapping assumes the object to be map
 
 Thus, in a similar way, the **reverse** mapping assumes that the object to be mapped is in the format defined by the
 `dataMappings` field's keys, and produces an object in the format defined by the `dataMappings` field's "values".
+
+## baseObject options
+
+The baseObject configuration describes the object that is used as the basis for the mapping. By default the mapper will base the mapping on an empty object, {}.
+
+When the map or mapReverse configuration values are the string -- `source`, the mapper will deep clone the source data object and begin mapping using that as the basis.
+
+```
+baseObject: {
+    map : 'source'
+    mapReverse: 'source'
+}
+```
+
+In the case where either the `map` or `mapReverse` configurations are functions, the mapper passes the source object as the first argument. The function should return the object to be used as the basis of the mapping.
+
+```
+baseObject: {
+    map : function (source) {
+        // return the source object as the basis, with the _private attributes removed.
+        return _.omit(source, ['_private']);
+    }
+}
+```
 
 ## use
 

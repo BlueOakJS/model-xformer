@@ -1,5 +1,6 @@
 /* jshint -W030 */
 var chai = require('chai'),
+    _ = require('lodash'),
     expect = chai.expect,
     testMapper = require('./fixtures/comprehensive-mapper');
 
@@ -30,11 +31,14 @@ describe('Comprehensive ModelMapper Usage:', function () {
         });
 
         it('when map input an object that doesn\'t match', function () {
-            expect(testMapper.map({
+            var theirObj = {
                 alice: 'foo',
                 bob: 'bar',
                 yoga: 0
-            })).to.deep.equal(myDefaultsOnly);
+            };
+            var myObj = _.merge({}, {_source: theirObj}, myDefaultsOnly);
+
+            expect(testMapper.map(theirObj)).to.deep.equal(myObj);
         });
 
         it('when mapReverse input an object that doesn\'t match', function () {
@@ -55,7 +59,7 @@ describe('Comprehensive ModelMapper Usage:', function () {
                 'Carol': 'baz'
             }
         };
-        var myOutputObj = {
+        var myOutputObj = _.merge({
             'a': 'first',
             'o': theirInputObj.Omega,
             't': mapDefaults.t(),
@@ -64,7 +68,8 @@ describe('Comprehensive ModelMapper Usage:', function () {
                 null
             ],
             'y': 'Savasana'
-        };
+        }, {_source: theirInputObj});
+
         var theirOutputInputObj = {
             'Alpha': 'FIRST',
             'Omega': myOutputObj.o,
