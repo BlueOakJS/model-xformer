@@ -117,6 +117,34 @@ describe('ModelMapper', function () {
 
                 expect(myMapper.map(inputObject)).to.deep.equal(expectValue);
             });
+
+            it('when there\'s a dataTransforms section with nested property references', function () {
+                myMapper = new ModelMapper({
+                    dataMappings: {
+                        'a.c': 'a.b'
+                    },
+                    dataTransforms: {
+                        'a.c': function (value, reverse) {
+                            if (!reverse) {
+                                return value * 2;
+                            }
+                        }
+                    }
+                });
+                inputObject = {
+                    a: {
+                        b: 3
+                    }
+                };
+                var expectValue = {
+                    a: {
+                        c: 6
+                    }
+                };
+
+                expect(myMapper.map(inputObject)).to.deep.equal(expectValue);
+            });
+
         });
     });
 
@@ -162,6 +190,33 @@ describe('ModelMapper', function () {
                 });
                 inputObject = {
                     c: 6
+                };
+                var expectValue = {
+                    a: {
+                        b: 3
+                    }
+                };
+
+                expect(myMapper.mapReverse(inputObject)).to.deep.equal(expectValue);
+            });
+
+            it('when there\'s a dataTransforms section with nested property references', function () {
+                myMapper = new ModelMapper({
+                    dataMappings: {
+                        'a.c': 'a.b'
+                    },
+                    dataTransforms: {
+                        'a.c': function (value, reverse) {
+                            if (reverse) {
+                                return value / 2;
+                            }
+                        }
+                    }
+                });
+                inputObject = {
+                    a: {
+                        c: 6
+                    }
                 };
                 var expectValue = {
                     a: {
