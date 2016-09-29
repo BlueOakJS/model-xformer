@@ -1,9 +1,11 @@
-var ModelMapper = require('./lib/ModelMapper');
+var ModelMapper = require('./lib/ModelMapper'),
+    mapperUtils = require('./lib/mapperUtils');
 
 function createMapper(mappingConfig) {
     return new ModelMapper(mappingConfig);
 }
 
 module.exports = {
-    createMapper: createMapper
+    createMapper: createMapper,
+    utils: mapperUtils
 };
