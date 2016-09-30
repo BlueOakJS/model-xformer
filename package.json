@@ -29,7 +29,8 @@
   },
   "homepage": "https://github.com/PointSource/ps-model-mapper#readme",
   "dependencies": {
-    "lodash": "^4.11.1"
+    "lodash": "^4.11.1",
+    "moment": "^2.15.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
