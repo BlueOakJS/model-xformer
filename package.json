@@ -18,10 +18,11 @@
   ],
   "author": "Sean Kennedy <sean.kennedy@pointsource.com>",
   "contributors": [
-    "Darrell Bleakley <darrell.bleakley@pointsource.com",
-    "Ben Schell <ben.schell@pointsource.com",
+    "Danny Levenson <danny.levenson@pointsource.com>",
     "Rob Ocel <rob.ocel@pointsource.com",
-    "Danny Levenson <danny.levenson@pointsource.com>"
+    "Sam Muggleworth <sam.muggleworth@pointsource.com>",
+    "Darrell Bleakley <darrell.bleakley@pointsource.com",
+    "Ben Schell <ben.schell@pointsource.com"
   ],
   "license": "MIT",
   "bugs": {
