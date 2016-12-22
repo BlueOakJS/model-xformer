@@ -1,6 +1,6 @@
 {
   "name": "ps-model-mapper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Common utilities for bidirectionally mapping data between two models",
   "main": "index.js",
   "scripts": {
