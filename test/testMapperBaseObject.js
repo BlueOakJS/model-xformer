@@ -101,8 +101,8 @@ describe('Base Object Usage', function () {
         it('do not propagate unmapped fields through to source', function () {
             var output = testMapper.mapReverse(myObj);
             expect(output).to.not.deep.equal(theirObj);
-            expect(output).to.have.deep.property('Alpha.Alpha', 'first');
             expect(output).to.not.have.deep.property('Alpha.Omega');
+            expect(output.Alpha.Alpha).to.equal('first');
         });
     });
 
