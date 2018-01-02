@@ -1,5 +1,5 @@
 {
-  "name": "ps-model-mapper",
+  "name": "model-xformer",
   "version": "1.1.0",
   "description": "Common utilities for bidirectionally mapping data between two models",
   "main": "index.js",
@@ -9,26 +9,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/PointSource/ps-model-mapper.git"
+    "url": "https://github.com/BlueOakJS/model-xformer.git"
   },
   "keywords": [
     "mapping",
     "model",
-    "data"
+    "data",
+    "transform",
+    "json"
   ],
   "author": "Sean Kennedy <sean.kennedy@pointsource.com>",
   "contributors": [
     "Danny Levenson <danny.levenson@pointsource.com>",
-    "Rob Ocel <rob.ocel@pointsource.com",
     "Sam Muggleworth <sam.muggleworth@pointsource.com>",
-    "Darrell Bleakley <darrell.bleakley@pointsource.com",
-    "Ben Schell <ben.schell@pointsource.com"
+    "Rob Ocel <rob.ocel@pointsource.com>",
+    "Darrell Bleakley",
+    "Ben Schell"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/PointSource/ps-model-mapper/issues"
+    "url": "https://github.com/BlueOakJS/model-xformer/issues"
   },
-  "homepage": "https://github.com/PointSource/ps-model-mapper#readme",
+  "homepage": "https://github.com/BlueOakJS/model-xformer#readme",
   "dependencies": {
     "lodash": "^4.11.1",
     "moment": "^2.15.1"
